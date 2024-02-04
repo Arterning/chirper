@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Http\Resources\TaskResource;
 use App\Services\TaskService;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,7 @@ class TaskController extends Controller
 
     public function show(Task $task)
     {
-        return $task;
+        return new TaskResource($task);
     }
 
     public function update(Request $request, Task $task)
