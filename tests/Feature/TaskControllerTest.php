@@ -55,7 +55,37 @@ class TaskControllerTest extends TestCase
         ]);
     }
 
-    
+    public function test_get_all_tasks_with_pagination()
+    {
+        // Assuming you have some tasks in the database for testing purposes
+        $response = $this->get('/api/tasks?pageNum=1&pageSize=10');
+        $response->assertStatus(200); // Assuming 200 is the status code for "OK"
+
+        // Assert the structure and content of the response JSON for the paginated tasks
+        $response->assertJsonStructure([
+            'current_page',
+            'data' => [
+                '*' => [
+                    'id',
+                    'title',
+                    'content',
+                    'created_at',
+                    'updated_at'
+                ]
+            ],
+            'first_page_url',
+            'from',
+            'last_page',
+            'last_page_url',
+            'next_page_url',
+            'path',
+            'per_page',
+            'prev_page_url',
+            'to',
+            'total'
+        ]);
+    }
+
     /**
      * A basic feature test example.
      */

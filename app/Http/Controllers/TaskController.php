@@ -3,13 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Services\TaskService;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    public function index()
+
+
+    private TaskService $taskService;
+ 
+    public function __construct(TaskService $taskService)
     {
+        $this->taskService = $taskService;
+    }
+
+
+
+    public function all() {
         return Task::all();
+    }
+
+    public function index(Request $request)
+    {
+        return $this->taskService->pageQuery($request);
     }
 
     public function store(Request $request)
